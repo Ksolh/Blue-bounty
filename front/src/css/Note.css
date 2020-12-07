@@ -1,0 +1,42 @@
+.NoteForm {
+    width: 80%;
+    height: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    background-color: inherit;
+    color: #fff;
+    align-self: right;
+}
+
+.NoteForm .form-group {
+    margin: 20px 0px 20px 0px;
+}
+
+.NoteForm .form-group h1 {
+    font-size: 24px;
+}
+
+.NoteForm .form-group input {
+    width: 50%;
+    background-color: #23272add;
+    color: #fff;
+    outline: 1px solid #eee;
+    z-index: 1;
+}
+
+.NoteForm .form-group textarea {
+    width: 100%;
+    height: 50vh;
+    font-size: 20px;
+    padding: 5px;
+    background-color: #23272add;
+    color: #fff;
+    outline: 1px solid #eee;
+    z-index: 1;
+}
+
+.NoteForm .form-group .buttons button {
+    margin-left: 10px;
+}

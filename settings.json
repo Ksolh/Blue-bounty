@@ -1,0 +1,9 @@
+{
+    "port": 5000,
+    "dbInfo": {
+        "host": "75.88.242.11",
+        "user": "notes_app_user",
+        "password": "76SOM%J4EP#RHi&BhtK5G",
+        "database": "notes_app"
+    }
+}
