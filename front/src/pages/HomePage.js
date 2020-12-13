@@ -28,6 +28,14 @@ function HomePage() {
         history.push('/note')
     }
 
+    const clickHandler = async () => {
+        //search logic
+    }
+
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') clickHandler()
+    }
+
     const renderNote = note => {
         return (
             <>
@@ -81,6 +89,12 @@ function HomePage() {
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div className="searchBox">
+                <input className="searchInput" type="text" id='search' placeholder="Search" onKeyDown={handleKeyDown} />
+                <button className="searchButton" onClick={clickHandler} type='submit'>
+                    <i className="material-icons">search</i>
+                </button>
             </div>
             <div className='Notes' style={{ position: "absolute" }}>
                 {notes.map(note => renderNote(note))}

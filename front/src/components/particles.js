@@ -18,11 +18,11 @@ function ParticlesElement() {
                     events: {
                         onHover: {
                             enable: true,
-                            mode: "attract"
+                            mode: "grab"
                         },
                         onClick: {
                             enabled: true,
-                            mode: 'attract'
+                            mode: 'repulse'
                         }
                     },
                     modes: {
@@ -50,7 +50,7 @@ function ParticlesElement() {
                     },
                     move: {
                         enable: true,
-                        speed: .3,
+                        speed: 1,
                         direction: 'random',
                         random: true
                     },
