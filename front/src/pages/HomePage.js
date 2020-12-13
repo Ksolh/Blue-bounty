@@ -5,6 +5,8 @@ import NoteService from '../services/note.service'
 import "../css/Home.css";
 import { useHistory } from "react-router-dom";
 
+const stringSimilarity = require('string-similarity')
+
 function HomePage() {
     const [notes, setNotes] = useState(null);
     const history = useHistory();
@@ -29,7 +31,24 @@ function HomePage() {
     }
 
     const clickHandler = async () => {
-        //search logic
+        let search = document.getElementById('search')
+        if (!search || !search.value) return
+
+        await getNotes()
+
+        let newNotes = []
+        for (let i of notes) {
+            let similarity = stringSimilarity.compareTwoStrings(search.value, i.title)
+            console.log(similarity)
+            if (similarity > .7) newNotes.push(i)
+            else {
+                similarity = stringSimilarity.compareTwoStrings(search.value, i.text)
+                console.log(similarity)
+                if (similarity > .7) newNotes.push(i)
+            }
+        }
+        console.log(newNotes)
+        setNotes(newNotes)
     }
 
     const handleKeyDown = e => {
