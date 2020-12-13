@@ -37,7 +37,7 @@ function HomePage() {
                         <div className='NoteEdit'><a href='javascript:void(0)'><i className="material-icons" onClick={() => { editClick(note) }}>edit</i></a></div>
                     </div>
                     <p1>{note.text}</p1>
-                    <p1>{`Created on${getDateString(note.createdAt)}`}</h3>
+                    <h3>{`Created on ${getDateString(note.createdAt)}`}</h3>
                 </div>
             </>
 
