@@ -38,11 +38,11 @@ function HomePage() {
 
         let newNotes = []
         for (let i of notes) {
-            let similarity = stringSimilarity.compareTwoStrings(search.value, i.title)
+            let similarity = stringSimilarity.compareTwoStrings(search.value.toLowerCase(), i.title.toLowerCase())
             console.log(similarity)
             if (similarity > .7) newNotes.push(i)
             else {
-                similarity = stringSimilarity.compareTwoStrings(search.value, i.text)
+                similarity = stringSimilarity.compareTwoStrings(search.value.toLowerCase(), i.text.toLowerCase())
                 console.log(similarity)
                 if (similarity > .7) newNotes.push(i)
             }
