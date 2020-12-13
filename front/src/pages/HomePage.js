@@ -71,11 +71,6 @@ function HomePage() {
         );
     };
 
-    const logOut = () => {
-        localStorage.clear()
-        history.push('/')
-    }
-
     if (!notes) return (
         <div className='App'>
             <div className="Header">
@@ -84,7 +79,7 @@ function HomePage() {
                         <div className='dropDownHeader'>
                             <a href='profile'>{localStorage.getItem('username')}</a>
                             <div className='dropdown-content'>
-                                <button onClick={logOut}>Logout</button>
+                                <a href='logout'>Logout</a>
                             </div>
                         </div>
                     </li>
@@ -103,7 +98,7 @@ function HomePage() {
                         <div className='dropDownHeader'>
                             <a href='profile'>{localStorage.getItem('username')}</a>
                             <div className='dropdown-content'>
-                                <button onClick={logOut}>Logout</button>
+                            <a href='logout'>Logout</a>
                             </div>
                         </div>
                     </li>

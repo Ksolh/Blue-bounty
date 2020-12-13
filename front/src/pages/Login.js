@@ -63,7 +63,7 @@ class LoginPage extends React.Component {
         else {
             localStorage.setItem(`uid`, res);
             localStorage.setItem('username', userName.value);
-            await sleep(200)
+            await sleep(300)
             this.setState({ loggedIn: true })
             return <Redirect to='/' />
         }

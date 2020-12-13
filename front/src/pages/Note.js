@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import noteService from "../services/note.service"
+import Tts from 'react-native-tts'
 import '../css/Note.css'
 
 function NotePage(props) {
@@ -28,7 +29,10 @@ function NotePage(props) {
             await noteService.delete(note.id)
         } //no else needed, returns to home if not saved and no note anyways
         history.push('/')
+    }
 
+    const tts = async () => {
+        //soon:tm:
     }
 
     return (
@@ -51,6 +55,7 @@ function NotePage(props) {
                 <div className="buttons">
                     <button onClick={saveButtonClick}>Save</button>
                     <button onClick={deleteButtonClick}>Delete</button>
+                    <button onClick={() => {Tts.speak(document.getElementById("noteText"))}}>Speak</button>
                 </div>
             </div>
 
