@@ -84,4 +84,26 @@ module.exports = async app => {
         });
     });
 
+    app.post('/api/notes/comment/new', async (req, res) => {
+        let errored = false;
+        const { commentAuthor, comment, noteID } = req.body;
+        await sqlHelper.query(`INSERT INTO comments(author,comment,noteid,createdAt) VALUES ('${commentAuthor}','${comment}','${noteID}','${Date.now()}')`)
+            .catch(err => {
+                errored = true;
+                res.status(400).send(err)
+            })
+        if (errored) return
+        return res.status(201).send({
+            error: false,
+            note: req.body
+        });
+    })
+
+    app.delete(`/api/notes/delete/comment/:id`, async (req, res) => {
+        const { id } = req.params;
+        await sqlHelper.query(`DELETE FROM comments WHERE id = '${id}'`)
+        return res.status(202).send({
+            error: false
+        })
+    })
 }

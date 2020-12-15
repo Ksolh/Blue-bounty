@@ -44,6 +44,19 @@ export default {
         console.log(err)
         if (err) return { errored: true, error: err }
         return res.data || {};
-
-    }
+    },
+    addComment: async (noteID, comment, commentAuthor) => {
+        let err;
+        commentAuthor = commentAuthor.replace('\'', '\\#`')
+        comment = comment.replace('\'', '\\#`')
+        let res = await axios.post('/api/notes/comment/new', { commentAuthor: commentAuthor, comment: comment, noteID: noteID })
+            .catch(e => { err = e })
+        console.log(err)
+        if (err) return { errored: true, error: err }
+        return res.data || {};
+    },
+    deleteComment: async commentID => {
+        let res = await axios.delete(`/api/notes/delete/comment/${commentID}`);
+        return res.data || [];
+    },
 }
