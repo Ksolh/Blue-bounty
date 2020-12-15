@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import noteService from "../services/note.service"
-import Tts from 'react-native-tts'
 import '../css/Note.css'
 
 function NotePage(props) {
@@ -31,8 +30,22 @@ function NotePage(props) {
         history.push('/')
     }
 
-    const tts = async () => {
-        //soon:tm:
+    const commentButtonClick = async () => {
+
+    }
+
+    const shareButtonClick = async () => {
+        let shareBox = document.getElementById('share')
+        shareBox.showModal()
+    }
+
+    const shareBoxSave = async () => {
+        let shareBox = document.getElementById('share')
+        let shareInput = document.getElementById('shareInput')
+        shareBox.close()
+        if (!shareInput.value || shareInput.value === '') return
+        if (!note) return
+        await noteService.addCollaborators(note.id, shareInput.value)
     }
 
     return (
@@ -55,10 +68,18 @@ function NotePage(props) {
                 <div className="buttons">
                     <button onClick={saveButtonClick}>Save</button>
                     <button onClick={deleteButtonClick}>Delete</button>
-                    <button onClick={() => {Tts.speak(document.getElementById("noteText"))}}>Speak</button>
+                    {note ? <>
+                        <button onClick={commentButtonClick}>Comment</button>
+                        <button onClick={shareButtonClick}>Share</button>
+                    </> : null}
+
                 </div>
             </div>
-
+            <dialog id='share'>
+                <p>Enter users to share with, seperated by commas</p>
+                <input id='shareInput' type='text' />
+                <button onClick={shareBoxSave}>Save</button>
+            </dialog>
         </div>
 
     )
