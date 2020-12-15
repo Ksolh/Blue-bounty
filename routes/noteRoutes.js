@@ -106,4 +106,17 @@ module.exports = async app => {
             error: false
         })
     })
+
+    app.get(`/api/notes/comments/:noteID`, async (req, res) => {
+        const { noteID } = req.params;
+        if (!noteID) res.status(400).send('No noteID Provided')
+        let errored = false;
+        let notes = await sqlHelper.query(`SELECT * FROM comments WHERE noteid = '${noteID}'`)
+            .catch(err => {
+                errored = true
+                res.status(400).send(err)
+            })
+        if (errored) return
+        return res.status(200).send(notes);
+    });
 }

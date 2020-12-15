@@ -59,4 +59,8 @@ export default {
         let res = await axios.delete(`/api/notes/delete/comment/${commentID}`);
         return res.data || [];
     },
+    getComments: async noteID => {
+        let res = await axios.get(`/api/notes/comments/${noteID}`);
+        return res.data || [];
+    }
 }
