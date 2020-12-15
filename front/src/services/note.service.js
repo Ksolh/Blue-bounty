@@ -36,4 +36,14 @@ export default {
         let res = await axios.delete(`/api/notes/delete/${noteID}`);
         return res.data || [];
     },
+    addCollaborators: async (noteID, collaboratorString) => {
+        let err;
+        collaboratorString = collaboratorString.replace('\'', '\\#`').replace(' ', '')
+        let res = await axios.put('/api/notes/edit/collaborators', { noteID: noteID, collaboratorString: collaboratorString })
+            .catch(e => { err = e })
+        console.log(err)
+        if (err) return { errored: true, error: err }
+        return res.data || {};
+
+    }
 }
