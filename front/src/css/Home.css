@@ -116,7 +116,7 @@
 
 .Note {
     border-top: 3px solid var(--red);
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: #23272abb;
     margin-bottom: 20px;
     overflow: hidden;
@@ -200,6 +200,26 @@
     transition: 0.4s;
     line-height: 40px;
     width: 0px;
+}
+
+/* COMMENTS DIV */
+
+.comments {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.comments p {
+    font-size: 20px;
+}
+
+li {
+    list-style: none;
 }
 
 /* Media queries */

@@ -31,7 +31,17 @@ function NotePage(props) {
     }
 
     const commentButtonClick = async () => {
+        let commentBox = document.getElementById('comment')
+        commentBox.showModal()
+    }
 
+    const commentBoxSave = async () => {
+        let commentBox = document.getElementById('comment')
+        let commentInput = document.getElementById('commentInput')
+        commentBox.close()
+        if (!commentInput.value || commentInput.value === '') return
+        if (!note) return
+        await noteService.addComment(note.id, commentInput.value, localStorage.getItem('uid'))
     }
 
     const shareButtonClick = async () => {
@@ -79,6 +89,11 @@ function NotePage(props) {
                 <p>Enter users to share with, seperated by commas</p>
                 <input id='shareInput' type='text' />
                 <button onClick={shareBoxSave}>Save</button>
+            </dialog>
+            <dialog id='comment'>
+                <p>Enter your comment, then click save to save it</p>
+                <input id='commentInput' type='text' />
+                <button onClick={commentBoxSave}>Save</button>
             </dialog>
         </div>
 

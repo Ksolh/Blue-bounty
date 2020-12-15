@@ -9,6 +9,7 @@ const stringSimilarity = require('string-similarity')
 
 function HomePage() {
     const [notes, setNotes] = useState(null);
+    const [comments, setComments] = useState(null);
     const history = useHistory();
 
     useEffect(() => {
@@ -30,6 +31,16 @@ function HomePage() {
         history.push('/note')
     }
 
+    const displayComments = async note => {
+        let c = await NoteService.getComments(note.id)
+        if (!c) return
+        setComments(c)
+    }
+
+    const closeComment = () => {
+        setComments(null)
+    }
+
     const clickHandler = async () => {
         let search = document.getElementById('search')
         if (!search || !search.value) return
@@ -39,15 +50,12 @@ function HomePage() {
         let newNotes = []
         for (let i of notes) {
             let similarity = stringSimilarity.compareTwoStrings(search.value.toLowerCase(), i.title.toLowerCase())
-            console.log(similarity)
             if (similarity > .7) newNotes.push(i)
             else {
                 similarity = stringSimilarity.compareTwoStrings(search.value.toLowerCase(), i.text.toLowerCase())
-                console.log(similarity)
                 if (similarity > .7) newNotes.push(i)
             }
         }
-        console.log(newNotes)
         setNotes(newNotes)
     }
 
@@ -61,6 +69,7 @@ function HomePage() {
                 <div className='Note'>
                     <div className='TopRow'>
                         <h1 className='NoteTitle'>{note.title}</h1>
+                        <div className='NoteEdit' style={{ right: '10%' }}><a href='javascript:void(0)'><i className="material-icons" onClick={() => { displayComments(note) }}>comment</i></a></div>
                         <div className='NoteEdit'><a href='javascript:void(0)'><i className="material-icons" onClick={() => { editClick(note) }}>edit</i></a></div>
                     </div>
                     <p1>{note.text}</p1>
@@ -98,7 +107,7 @@ function HomePage() {
                         <div className='dropDownHeader'>
                             <a href='profile'>{localStorage.getItem('username')}</a>
                             <div className='dropdown-content'>
-                            <a href='logout'>Logout</a>
+                                <a href='logout'>Logout</a>
                             </div>
                         </div>
                     </li>
@@ -113,6 +122,23 @@ function HomePage() {
             <div className='Notes' style={{ position: "absolute" }}>
                 {notes.map(note => renderNote(note))}
             </div>
+            {comments ?
+                <div className='comments'>
+                    <ul>
+                        {(comments.length === 0) ?
+                            <li><p>No Comments</p></li> :
+                            comments.map(c => {
+                                return <li>
+                                    <p>{c.comment}</p>
+                                </li>
+                            })
+                        }
+
+                    </ul>
+                    <button onClick={closeComment}>Close</button>
+                </div>
+                :
+                null}
         </div>
     )
 }
