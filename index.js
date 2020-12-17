@@ -21,7 +21,8 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-const PORT = require('./settings.json').port || 5000;
+const PORT = require('./settings.json').httpPort || 5001;
+const PORTHS = require('./settings.json').httpsPort || 5000;
 
 app.listen(PORT, () => {
     console.log(`app running on port ${PORT}`)
@@ -34,5 +35,5 @@ try {
     }
 
     var httpsServer = https.createServer(credentials, app)
-    httpsServer.listen(5000)
+    httpsServer.listen(PORTHS)
 } catch (er) { }
