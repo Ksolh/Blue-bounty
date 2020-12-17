@@ -1,5 +1,4 @@
 {
-    "apiAddr": "http://localhost:5001",
     "httpPort": 5001,
     "httpsPort": 5000,
     "dbInfo": {
