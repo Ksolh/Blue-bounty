@@ -27,10 +27,12 @@ app.listen(PORT, () => {
     console.log(`app running on port ${PORT}`)
 });
 
-var credentials = {
-    key: fs.readFileSync('./privkey.pem', 'utf8'),
-    cert: fs.readFileSync('./cert.pem', 'utf8')
-}
+try {
+    var credentials = {
+        key: fs.readFileSync('./privkey.pem', 'utf8'),
+        cert: fs.readFileSync('./cert.pem', 'utf8')
+    }
 
-var httpsServer = https.createServer(credentials, app)
-httpsServer.listen(5000)
+    var httpsServer = https.createServer(credentials, app)
+    httpsServer.listen(5000)
+} catch (er) { }
