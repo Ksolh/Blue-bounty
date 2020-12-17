@@ -2,12 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const https = require('https')
+const logger = require('express-logger')
 const fs = require('fs')
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(logger({path: '/logs/backendlog.txt'}))
 
 require('./routes/userRoutes')(app);
 require('./routes/noteRoutes')(app);
