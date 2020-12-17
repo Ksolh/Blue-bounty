@@ -2,13 +2,9 @@ import axios from 'axios';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    getAll: async () => {
-        let res = await axios.get(`/api/users`);
-        return res.data || [];
-    },
     add: async (firstName, lastName, userName, password) => {
         let err;
-        let res = await axios.post('http://localhost:5000/api/user/', { firstName: firstName, lastName: lastName, userName: userName, password: password })
+        let res = await axios.post('/api/user/', { firstName: firstName, lastName: lastName, userName: userName, password: password })
             .catch(e => { err = e })
             console.log(err)
         if (err) return { errored: true, error: err }
@@ -25,7 +21,7 @@ export default {
     },
     login: async (userName, password) => {
         let err
-        let res = await axios.post(`http://localhost:5000/api/login`, { userName: userName, password: password })
+        let res = await axios.post(`/api/login`, { userName: userName, password: password })
             .catch(e => { err = e })
         if (err) return { errored: true, error: err }
         return res.data.user || {};

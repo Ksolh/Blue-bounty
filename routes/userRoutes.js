@@ -2,17 +2,6 @@ const sqlHelper = require('../lib/mySqlHelper')
 
 module.exports = async app => {
 
-    app.get(`/api/users`, async (req, res) => {
-        let errored = false;
-        let users = await sqlHelper.query(`SELECT * FROM users`)
-            .catch(err => {
-                errored = true
-                res.status(400).send(err)
-            })
-        if (errored) return
-        return res.status(200).send(users);
-    });
-
     app.post(`/api/user`, async (req, res) => {
         let errored = false;
         const { firstName, lastName, userName, password } = req.body;
