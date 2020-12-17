@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const https = require('https')
+const fs = require('fs')
 
 const app = express();
 
@@ -24,3 +26,11 @@ const PORT = require('./settings.json').port || 5000;
 app.listen(PORT, () => {
     console.log(`app running on port ${PORT}`)
 });
+
+var credentials = {
+    key: fs.readFileSync('./privkey.pem', 'utf8'),
+    cert: fs.readFileSync('./cert.pem', 'utf8')
+}
+
+var httpsServer = https.createServer(credentials, app)
+httpsServer.listen(5000)
