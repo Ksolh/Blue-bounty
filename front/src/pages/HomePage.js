@@ -11,6 +11,7 @@ function HomePage() {
     const [notes, setNotes] = useState(null);
     const [comments, setComments] = useState(null);
     const history = useHistory();
+    let refreshInterval
 
     useEffect(() => {
         if (!notes) {
@@ -19,8 +20,15 @@ function HomePage() {
     })
 
     const getNotes = async () => {
-        let res = await NoteService.getAll(localStorage.getItem('uid'));
-        setNotes(res);
+        if (!refreshInterval) {
+            retrieve()
+            refreshInterval = setInterval(retrieve, 3000)
+        }
+        async function retrieve() {
+            let res = await NoteService.getAll(localStorage.getItem('uid'));
+            setNotes(res);
+            console.log('getnotes')
+        }
     }
 
     const editClick = note => {

@@ -30,20 +30,53 @@ function App() {
   )
 }
 
+/* ATTEMPTED FIX FOR LOGIN DELAY
+function App() {
+  const [auth, setState] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.uid) setState(1)
+    else
+      setTimeout(() => {
+        if (localStorage.uid) setState(1)
+        else setState(0)
+      }, 500)
+  }, [])
+
+  if (auth === 0) {
+    return (
+      <BrowserRouter>
+        <ParticlesElement />
+        <LoginPage />
+      </BrowserRouter>
+    )
+  } else if (auth === 1) {
+    return (<BrowserRouter>
+      <ParticlesElement />
+      <Switch>
+        <Route exact path='/note' render={props => <NotePage {...props} />} />
+        <Route exact path="/logout" render={props => <LogOut {...props} />} />
+        <Route exact path="/" render={props => <HomePage {...props} />} />
+      </Switch>
+    </BrowserRouter>
+    )
+  } else return (
+    <BrowserRouter>
+      <ParticlesElement />
+      <h1 style={{ color: "white", top: "0", left: '0' }}>Loading</h1>
+    </BrowserRouter>
+  )
+}
+*/
+
 function Auth() {
   if (localStorage.uid) return true
   else return false
 }
 
 function LogOut() {
-  const [state, setState] = useState(null);
-  useEffect(() => {
-    setTimeout(() => { setState(1) }, 2000)
-  })
   localStorage.clear()
-  if (!state) return (<div>
-    <h1>Redirecting momentarily</h1>
-  </div>)
+  window.location.reload(false)
   return <Redirect to='/' />
 }
 
