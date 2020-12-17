@@ -57,16 +57,16 @@ class LoginPage extends React.Component {
 
         //send to db
         let res = await userService.login(userName.value, password.value)
-        console.log(res)
+
         //handle result
         if (res.errored) password.classList.add('invalid_username')
         else {
             localStorage.setItem(`uid`, res);
             localStorage.setItem('username', userName.value);
             await sleep(300)
-            //this.setState({ loggedIn: true })
-            //window.location.reload(false)
-            //return <Redirect to='/' />
+            this.setState({ loggedIn: true })
+            window.location.reload(false)
+            return <Redirect to='/' />
         }
     }
     SUAnimation() {
@@ -78,7 +78,7 @@ class LoginPage extends React.Component {
         container.classList.remove("right-panel-active");
     }
     render() {
-        //if (this.state.loggedIn) return <Redirect to='/' />
+        if (this.state.loggedIn) return <Redirect to='/' />
 
         return (
             <div className="container" id="container">

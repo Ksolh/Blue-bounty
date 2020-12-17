@@ -12,6 +12,7 @@ function HomePage() {
     const [comments, setComments] = useState(null);
     const history = useHistory();
     let refreshInterval
+    let displayingSearch = false;
 
     useEffect(() => {
         if (!notes) {
@@ -25,6 +26,7 @@ function HomePage() {
             refreshInterval = setInterval(retrieve, 3000)
         }
         async function retrieve() {
+            if (displayingSearch) return
             let res = await NoteService.getAll(localStorage.getItem('uid'));
             setNotes(res);
             console.log('getnotes')
@@ -64,10 +66,13 @@ function HomePage() {
                 if (similarity > .7) newNotes.push(i)
             }
         }
+        displayingSearch = true;
         setNotes(newNotes)
     }
 
     const handleKeyDown = e => {
+        let search = document.getElementById('search')
+        if (!search || !search.value) displayingSearch = true;
         if (e.key === 'Enter') clickHandler()
     }
 
