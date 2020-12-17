@@ -10,9 +10,9 @@ const stringSimilarity = require('string-similarity')
 function HomePage() {
     const [notes, setNotes] = useState(null);
     const [comments, setComments] = useState(null);
+    const [searching, setSearching] = useState(null)
     const history = useHistory();
     let refreshInterval
-    let displayingSearch = false;
 
     useEffect(() => {
         if (!notes) {
@@ -22,14 +22,17 @@ function HomePage() {
 
     const getNotes = async () => {
         if (!refreshInterval) {
+            if (searching) return
             retrieve()
             refreshInterval = setInterval(retrieve, 3000)
         }
         async function retrieve() {
-            if (displayingSearch) return
+            let search = document.getElementById('search')
+            console.log(search)
+            if (search && search.value) return
+            if (searching) return
             let res = await NoteService.getAll(localStorage.getItem('uid'));
             setNotes(res);
-            console.log('getnotes')
         }
     }
 
@@ -66,13 +69,15 @@ function HomePage() {
                 if (similarity > .7) newNotes.push(i)
             }
         }
-        displayingSearch = true;
+        setSearching(true)
+        clearInterval(refreshInterval)
+        refreshInterval = null;
         setNotes(newNotes)
     }
 
     const handleKeyDown = e => {
         let search = document.getElementById('search')
-        if (!search || !search.value) displayingSearch = true;
+        if (!search || !search.value) setSearching(false)
         if (e.key === 'Enter') clickHandler()
     }
 
