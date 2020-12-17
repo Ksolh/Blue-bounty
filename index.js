@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(logger({path: '/logs/backendlog.txt'}))
+app.use(logger({ path: '/logs/backendlog.txt' }))
 
 require('./routes/userRoutes')(app);
 require('./routes/noteRoutes')(app);
