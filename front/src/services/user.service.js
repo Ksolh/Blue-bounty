@@ -24,6 +24,7 @@ export default {
         let res = await axios.post(`/api/login`, { userName: userName, password: password })
             .catch(e => { err = e })
         if (err) return { errored: true, error: err }
+        console.log(err)
         return res.data.user || {};
     }
 }
